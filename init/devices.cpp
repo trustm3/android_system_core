@@ -917,7 +917,9 @@ void handle_device_fd()
         }
 
         handle_device_event(&uevent);
+#ifndef __TRUSTME_NATIVE
         handle_firmware_event(&uevent);
+#endif
     }
 }
 

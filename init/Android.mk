@@ -18,6 +18,10 @@ init_cflags += \
     -Wno-unused-parameter \
     -Werror \
 
+ifneq ($(TRUSTME_NATIVE),)
+init_cflags += -D__TRUSTME_NATIVE
+endif
+
 # --
 
 # If building on Linux, then build unit test for the host.

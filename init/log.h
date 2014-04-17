@@ -29,4 +29,10 @@
 void init_klog_write(int level, const char* fmt, ...) __printflike(2, 3);
 int selinux_klog_callback(int level, const char* fmt, ...) __printflike(2, 3);
 
+#ifdef __TRUSTME_NATIVE
+#define LOG_UEVENTS        1  /* log uevent messages if 1. verbose */
+#else
+#define LOG_UEVENTS        0  /* log uevent messages if 1. verbose */
+#endif
+
 #endif

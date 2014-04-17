@@ -19,6 +19,10 @@ LOCAL_SRC_FILES:= \
 
 LOCAL_CFLAGS    += -Wno-unused-parameter
 
+ifneq ($(TRUSTME_NATIVE),)
+LOCAL_CFLAGS += -D__TRUSTME_NATIVE
+endif
+
 ifeq ($(strip $(INIT_BOOTCHART)),true)
 LOCAL_SRC_FILES += bootchart.c
 LOCAL_CFLAGS    += -DBOOTCHART=1

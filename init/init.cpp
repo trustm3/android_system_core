@@ -600,6 +600,7 @@ int main(int argc, char** argv) {
 
     bool is_first_stage = (argc == 1) || (strcmp(argv[1], "--second-stage") != 0);
 
+#ifdef __TRUSTME_NATIVE
     // Get the basic filesystem setup we need put together in the initramdisk
     // on / and then we'll let the rc file figure out the rest.
     if (is_first_stage) {
@@ -611,6 +612,7 @@ int main(int argc, char** argv) {
         mount("proc", "/proc", "proc", 0, "hidepid=2,gid=" MAKE_STR(AID_READPROC));
         mount("sysfs", "/sys", "sysfs", 0, NULL);
     }
+#endif
 
     // We must have some place other than / to create the device nodes for
     // kmsg and null, otherwise we won't be able to remount / read-only

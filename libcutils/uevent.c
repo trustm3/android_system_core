@@ -93,7 +93,7 @@ out:
     return -1;
 }
 
-int uevent_open_socket(int buf_sz, bool passcred)
+int uevent_open_socket(int __attribute__((unused)) buf_sz, bool passcred)
 {
     struct sockaddr_nl addr;
     int on = passcred;

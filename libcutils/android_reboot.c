@@ -233,6 +233,13 @@ int android_reboot_with_callback(
             ret = -1;
     }
 
+    if (ret == -1 && errno == EPERM) {
+        /* If we are in a container and CAP_SYS_BOOT was dropped, we arrive here.
+	 * Reboot will return -1 and set the errno accordingly.
+	 * The exit call will kill the container */
+        exit(0);
+    }
+
     return ret;
 }
 

@@ -988,13 +988,14 @@ static void selinux_initialize(void)
     if (selinux_is_disabled()) {
         return;
     }
-
+#ifdef __TRUSTME_NATIVE
     INFO("loading selinux policy\n");
     if (selinux_android_load_policy() < 0) {
         ERROR("SELinux: Failed to load policy; rebooting into recovery mode\n");
         android_reboot(ANDROID_RB_RESTART2, 0, "recovery");
         while (1) { pause(); }  // never reached
     }
+#endif
 
     selinux_init_all_handles();
     bool is_enforcing = selinux_is_enforcing();

@@ -534,8 +534,13 @@ static int mount_fstab(const char* fstabfile, int mount_mode) {
         /* child, call fs_mgr_mount_all() */
         klog_set_level(6);  /* So we can see what fs_mgr_mount_all() does */
         fstab = fs_mgr_read_fstab(fstabfile);
-        child_ret = fs_mgr_mount_all(fstab, mount_mode);
-        fs_mgr_free_fstab(fstab);
+	/* Trustme hack */
+	if (fstab) {
+	    child_ret = fs_mgr_mount_all(fstab, mount_mode);
+	    fs_mgr_free_fstab(fstab);
+	} else {
+	    child_ret = 0;
+	}
         if (child_ret == -1) {
             ERROR("fs_mgr_mount_all returned an error\n");
         }

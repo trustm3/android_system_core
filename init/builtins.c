@@ -912,6 +912,7 @@ int do_loglevel(int nargs, char **args) {
         ERROR("loglevel: invalid log level'%d'\n", log_level);
         return -EINVAL;
     }
+    NOTICE("loglevel: set to '%d'\n", log_level);
     klog_set_level(log_level);
     return 0;
 }

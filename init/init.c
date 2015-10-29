@@ -77,6 +77,10 @@ static struct action *cur_action = NULL;
 static struct command *cur_command = NULL;
 static struct listnode *command_queue = NULL;
 
+#ifdef __TRUSTME_NATIVE
+int write_file(const char *path, const char *value); // defined in builtins.c
+#endif
+
 void notify_service_state(const char *name, const char *state)
 {
     char pname[PROP_NAME_MAX];

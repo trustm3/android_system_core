@@ -72,6 +72,7 @@ int ueventd_main(int argc, char **argv)
     klog_init();
 #if LOG_UEVENTS
     /* Ensure we're at a logging level that will show the events */
+    /* note that this loglevel is process local... */
     if (klog_get_level() < KLOG_INFO_LEVEL) {
         klog_set_level(KLOG_INFO_LEVEL);
     }

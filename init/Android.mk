@@ -19,6 +19,10 @@ LOCAL_SRC_FILES:= \
 
 LOCAL_CFLAGS    += -Wno-unused-parameter
 
+ifneq ($(TRUSTME_A0),)
+LOCAL_CFLAGS += -D__TRUSTME_A0
+endif
+
 ifneq ($(TRUSTME_NATIVE),)
 LOCAL_CFLAGS += -D__TRUSTME_NATIVE
 endif

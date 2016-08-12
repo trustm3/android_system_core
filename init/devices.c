@@ -967,7 +967,8 @@ void handle_device_fd()
         }
 
         handle_device_event(&uevent);
-#ifndef __TRUSTME_NATIVE
+// only load firmware in a0
+#ifdef __TRUSTME_A0
         handle_firmware_event(&uevent);
 #endif
     }

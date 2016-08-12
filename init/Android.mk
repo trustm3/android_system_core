@@ -22,6 +22,10 @@ ifneq ($(TRUSTME_NATIVE),)
 init_cflags += -D__TRUSTME_NATIVE
 endif
 
+ifneq ($(TRUSTME_A0),)
+init_cflags += -D__TRUSTME_A0
+endif
+
 # --
 
 # If building on Linux, then build unit test for the host.

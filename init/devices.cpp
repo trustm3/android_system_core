@@ -49,6 +49,8 @@
 #include "util.h"
 #include "log.h"
 
+#define UNUSED __attribute__((unused))
+ 
 #define SYSFS_PREFIX    "/sys"
 static const char *firmware_dirs[] = { "/etc/firmware",
                                        "/vendor/firmware",
@@ -872,7 +874,8 @@ root_free_out:
     free(root);
 }
 
-static void handle_firmware_event(struct uevent *uevent)
+
+UNUSED static void handle_firmware_event(struct uevent *uevent)
 {
     pid_t pid;
 

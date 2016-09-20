@@ -166,7 +166,7 @@ static int wait_for_coldboot_done_action(const std::vector<std::string>& args) {
     // Any longer than 1s is an unreasonable length of time to delay booting.
     // If you're hitting this timeout, check that you didn't make your
     // sepolicy regular expressions too expensive (http://b/19899875).
-    if (wait_for_file(COLDBOOT_DONE, 1)) {
+    if (wait_for_file(COLDBOOT_DONE, 2)) {
         ERROR("Timed out waiting for %s\n", COLDBOOT_DONE);
     }
 
@@ -563,11 +563,13 @@ static void selinux_initialize(bool in_kernel_domain) {
     selinux_set_callback(SELINUX_CB_AUDIT, cb);
 
     if (in_kernel_domain) {
+#ifdef __TRUSTME_NATIVE
         INFO("Loading SELinux policy...\n");
         if (selinux_android_load_policy() < 0) {
             ERROR("failed to load policy: %s\n", strerror(errno));
             security_failure();
         }
+#endif
 
         bool kernel_enforcing = (security_getenforce() == 1);
         bool is_enforcing = selinux_is_enforcing();
@@ -579,9 +581,11 @@ static void selinux_initialize(bool in_kernel_domain) {
             }
         }
 
+#ifdef __TRUSTME_NATIVE
         if (write_file("/sys/fs/selinux/checkreqprot", "0") == -1) {
             security_failure();
         }
+#endif
 
         NOTICE("(Initializing SELinux %s took %.2fs.)\n",
                is_enforcing ? "enforcing" : "non-enforcing", t.duration());

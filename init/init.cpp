@@ -517,7 +517,7 @@ static selinux_enforcing_status selinux_status_from_cmdline() {
 }
 
 
-static bool selinux_is_disabled(void)
+bool selinux_is_disabled(void)
 {
     if (ALLOW_DISABLE_SELINUX) {
         if (access("/sys/fs/selinux", F_OK) != 0) {

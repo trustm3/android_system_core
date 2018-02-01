@@ -403,7 +403,7 @@ bool Service::Start() {
                 !si.socketcon.empty() ? si.socketcon.c_str() : scon.c_str();
 
             int s = create_socket(si.name.c_str(), socket_type, si.perm,
-                                  si.uid, si.gid, socketcon);
+                                  si.uid, si.gid, !selinux_is_disabled() ? socketcon : NULL);
             if (s >= 0) {
                 PublishSocket(si.name, s);
             }
@@ -452,7 +452,7 @@ bool Service::Start() {
                 _exit(127);
             }
         }
-        if (!seclabel_.empty()) {
+        if (!seclabel_.empty() && !selinux_is_disabled()) {
             if (setexeccon(seclabel_.c_str()) < 0) {
                 ERROR("cannot setexeccon('%s'): %s\n",
                       seclabel_.c_str(), strerror(errno));

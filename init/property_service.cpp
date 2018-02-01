@@ -76,6 +76,9 @@ static int check_mac_perms(const char *name, char *sctx, struct ucred *cr)
     int result = 0;
     property_audit_data audit_data;
 
+    if (selinux_is_disabled())
+        return 1;
+
     if (!sctx)
         goto err;
 
